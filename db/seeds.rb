@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+100.times.each do |i|
+  code = Faker::Alphanumeric.alpha(number: 3).upcase
+  name = "#{code} - #{Faker::Address.city} International Airport"
+  Airport.create(code: code, name: name)
+end

@@ -1,3 +1,3 @@
 ```
-localhost:3000/airports
+GET http://localhost:3000/airports/:id
 ```
