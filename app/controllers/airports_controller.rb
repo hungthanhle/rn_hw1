@@ -6,7 +6,7 @@ class AirportsController < ApplicationController
   end
 
   def show
-    cache_key = "airport/#{params[:id]}"
+    cache_key = params[:id]
     # Read cache
     data = Rails.cache.read(cache_key)
     if data
@@ -18,8 +18,8 @@ class AirportsController < ApplicationController
       }
     else
       # Miss cache
-      data = Airport.find(params[:id])
-      Rails.cache.write(cache_key, data) if data.present?
+      data = Airport.find_by(code: cache_key)
+      Rails.cache.write(cache_key, data, {expires_in: 5.minutes}) if data.present?
       return render json: {
         success: true,
         data: data.attributes.to_h,
